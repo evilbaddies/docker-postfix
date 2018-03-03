@@ -1,0 +1,16 @@
+connect = host=$POSTFIX_DB_HOST dbname=$POSTFIX_DB_NAME user=$POSTFIX_DB_USER password=$POSTFIX_DB_PASSWORD
+driver = mysql
+
+# Default password scheme - change to match your Postfixadmin setting.
+# depends on your $CONF['encrypt'] setting:
+# md5crypt  -> MD5-CRYPT
+# md5       -> PLAIN-MD5
+# cleartext -> PLAIN
+default_pass_scheme = MD5-CRYPT
+
+# Query to retrieve password. user can be used to retrieve username in other
+# formats also.
+
+password_query = SELECT username AS user,password FROM mailbox WHERE username = '%u' AND active='1'
+
+user_query = SELECT CONCAT('/var/mail/vmail/', maildir) AS home, 5000 AS uid, 5000 AS gid, CONCAT('dict:storage=',floor(quota/1000),' proxy::quota') as quota FROM mailbox WHERE username = '%u' AND active='1'

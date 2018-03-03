@@ -1,0 +1,2 @@
+auth required pam_mysql.so user=$POSTFIX_DB_USER passwd=$POSTFIX_DB_PASSWORD host=$POSTFIX_DB_HOST db=$POSTFIX_DB_NAME table=mailbox usercolumn=username passwdcolumn=password crypt=1
+auth sufficient pam_mysql.so user=$POSTFIX_DB_USER passwd=$POSTFIX_DB_PASSWORD host=$POSTFIX_DB_HOST db=$POSTFIX_DB_NAME table=mailbox usercolumn=username passwdcolumn=password crypt=1

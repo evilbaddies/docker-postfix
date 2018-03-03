@@ -1,0 +1,9 @@
+pwcheck_method: saslauthd
+mech_list: plain login
+allow_plaintext: true
+auxprop_plugin: mysql
+sql_hostnames: $POSTFIX_DB_HOST
+sql_user: $POSTFIX_DB_USER
+sql_passwd: $POSTFIX_DB_PASSWORD
+sql_database: $POSTFIX_DB_NAME
+sql_select: select password from mailbox where username = '%s'
