@@ -28,6 +28,7 @@ sed -i 's/mail.replace.me/$MAIL_FQDN/g' /etc/mailname
 ####################################################################
 cp -f /opt/postfix/conf/sasl/saslauthd /etc/default/
 
+set +x -v
 sed -e "s/\$POSTFIX_DB_HOST/$POSTFIX_DB_HOST/;
         s/\$POSTFIX_DB_NAME/$POSTFIX_DB_NAME/; 
         s/\$POSTFIX_DB_USER/$POSTFIX_DB_USER/;
@@ -37,6 +38,7 @@ sed -e "s/\$POSTFIX_DB_HOST/$POSTFIX_DB_HOST/;
         s/\$POSTFIX_DB_NAME/$POSTFIX_DB_NAME/;
         s/\$POSTFIX_DB_USER/$POSTFIX_DB_USER/;
         s/\$POSTFIX_DB_PASSWORD/$POSTFIX_DB_PASSWORD/" < /opt/postfix/conf/sasl/pam.d-smtp.tmpl > /etc/pam.d/smtp
+set -x +v
 
 
 ####################################################################
@@ -45,10 +47,12 @@ sed -e "s/\$POSTFIX_DB_HOST/$POSTFIX_DB_HOST/;
 
 cp -f /opt/postfix/conf/dovecot/dovecot.conf /etc/dovecot/
 
+set +x -v
 sed -e "s/\$POSTFIX_DB_HOST/$POSTFIX_DB_HOST/;
         s/\$POSTFIX_DB_NAME/$POSTFIX_DB_NAME/;
         s/\$POSTFIX_DB_USER/$POSTFIX_DB_USER/;
         s/\$POSTFIX_DB_PASSWORD/$POSTFIX_DB_PASSWORD/" < /opt/postfix/conf/dovecot/dovecot-sql.conf.tmpl > /etc/dovecot/dovecot-sql.conf
+set -x +v
 
 service rsyslog restart
 service saslauthd restart
