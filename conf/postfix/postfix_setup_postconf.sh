@@ -26,5 +26,8 @@ postconf -e 'smtpd_use_tls = yes'
 postconf -e 'smtpd_tls_cert_file = /etc/postfix/tls/tls.crt'
 postconf -e 'smtpd_tls_key_file = /etc/postfix/tls/tls.key'
 postconf -e 'smtpd_tls_security_level = may'
+postconf -e 'smtp_tls_security_level = may'
+postconf -e 'smtp_tls_loglevel = 1'
+postconf -e 'smtpd_tls_loglevel = 1'
 
 postconf -e 'smtpd_upstream_proxy_protocol = haproxy'
