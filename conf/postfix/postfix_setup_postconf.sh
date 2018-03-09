@@ -30,4 +30,5 @@ postconf -e 'smtp_tls_security_level = may'
 postconf -e 'smtp_tls_loglevel = 1'
 postconf -e 'smtpd_tls_loglevel = 1'
 
-postconf -e 'smtpd_upstream_proxy_protocol = haproxy'
+# Uncomment this to enable HA Proxy protocol
+#postconf -e 'smtpd_upstream_proxy_protocol = haproxy'
