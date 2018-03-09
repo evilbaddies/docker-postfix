@@ -30,5 +30,11 @@ postconf -e 'smtp_tls_security_level = may'
 postconf -e 'smtp_tls_loglevel = 1'
 postconf -e 'smtpd_tls_loglevel = 1'
 
+# DKIM
+postconf -e 'milter_default_action = accept'
+postconf -e 'milter_protocol = 2'
+postconf -e 'smtpd_milters = inet:localhost:8891'
+postconf -e 'non_smtpd_milters = inet:localhost:8891'
+
 # Uncomment this to enable HA Proxy protocol
 #postconf -e 'smtpd_upstream_proxy_protocol = haproxy'

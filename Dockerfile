@@ -18,7 +18,9 @@ RUN apt-get update && \
         libsasl2-2 \
         libsasl2-modules \
         libsasl2-modules-sql \
-        sasl2-bin libpam-mysql && \
+        sasl2-bin libpam-mysql \
+        opendkim \
+        opendkim-tools && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /usr/share/locale/* && \
@@ -33,6 +35,7 @@ COPY conf /opt/postfix/conf
 ENV MAIL_FQDN MAIL_DOMAIN POSTFIX_DB_HOST POSTFIX_DB_NAME POSTFIX_DB_USER POSTFIX_DB_PASSWORD
 
 VOLUME /etc/postfix/tls
+VOLUME /etc/mail/dkim
 VOLUME /var/mail/vmail
 
 EXPOSE 25 587
