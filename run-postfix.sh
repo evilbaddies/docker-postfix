@@ -65,6 +65,7 @@ set -x +v
 service rsyslog restart
 service saslauthd restart
 service dovecot restart
+service opendkim restart
 
 postfix_status=`postfix status || true`
 if [[ -z "${postfix_status##*$is running*}" ]]; then

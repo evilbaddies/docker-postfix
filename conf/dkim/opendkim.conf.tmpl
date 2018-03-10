@@ -24,6 +24,10 @@ SignatureAlgorithm      rsa-sha256
 SubDomains              no
 X-Header                no
 UserID                  root:opendkim
+
+# Normally this option should be set to true, but doesn't work with kubernetes secrets volumes so have to set to false
+RequireSafeKeys         false
+
 #UseASPDiscard          no
 #Version                rfc4871
 #ADSPAction            continue
