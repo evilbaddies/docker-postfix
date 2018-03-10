@@ -37,4 +37,4 @@ postconf -e 'smtpd_milters = inet:localhost:8891'
 postconf -e 'non_smtpd_milters = inet:localhost:8891'
 
 # Uncomment this to enable HA Proxy protocol
-#postconf -e 'smtpd_upstream_proxy_protocol = haproxy'
+postconf -e 'smtpd_upstream_proxy_protocol = haproxy'
