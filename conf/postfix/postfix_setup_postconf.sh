@@ -30,6 +30,9 @@ postconf -e 'smtp_tls_security_level = may'
 postconf -e 'smtp_tls_loglevel = 1'
 postconf -e 'smtpd_tls_loglevel = 1'
 
+# add header for authenticated mail to strip IP
+postconf -e 'header_checks = regexp:/etc/postfix/header_checks'
+
 # DKIM
 postconf -e 'milter_default_action = accept'
 postconf -e 'milter_protocol = 2'

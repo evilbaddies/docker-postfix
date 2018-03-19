@@ -20,6 +20,9 @@ sed -i '/submission.*inet.*smtpd/s/^#//g' /etc/postfix/master.cf
 # Set the FQDN for mail server in /etc/mailname
 sed -i 's/mail.replace.me/$MAIL_FQDN/g' /etc/mailname
 
+MAIL_DOMAIN_ESC_DOTS=$(echo $MAIL_DOMAIN | sed "s/\./\\\./g")
+sed -e "s/\$MAIL_DOMAIN_ESC_DOTS/$MAIL_DOMAIN_ESC_DOTS/g" < /opt/postfix/conf/postfix/header_checks.tmpl > /etc/postfix/header_checks
+
 /opt/postfix/conf/postfix/postfix_setup_mysql.sh
 /opt/postfix/conf/postfix/postfix_setup_postconf.sh
 
