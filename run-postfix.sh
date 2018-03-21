@@ -49,7 +49,8 @@ set -x +v
 ####################################################################
 cp -f /opt/postfix/conf/dkim/opendkim /etc/default/
 
-sed -e "s/\$MAIL_DOMAIN/$MAIL_DOMAIN/" < /opt/postfix/conf/dkim/opendkim.conf.tmpl > /etc/opendkim.conf
+sed -e "s/\$MAIL_DOMAIN/$MAIL_DOMAIN/;
+        s/\$MAIL_HOST_NAME/$MAIL_HOST_NAME/" < /opt/postfix/conf/dkim/opendkim.conf.tmpl > /etc/opendkim.conf
 
 
 ####################################################################

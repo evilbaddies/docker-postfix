@@ -12,7 +12,7 @@ UMask                   002
 # selector '2007' (e.g. 2007._domainkey.example.com)
 Domain                  $MAIL_DOMAIN
 KeyFile                 /etc/mail/dkim/dkim.key
-Selector                mail
+Selector                $MAIL_HOST_NAME
 
 # Commonly-used options; the commented-out versions show the defaults.
 AutoRestart             yes
