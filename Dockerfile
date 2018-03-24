@@ -2,7 +2,8 @@ FROM debian:jessie
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && \
+RUN echo 'deb http://ftp.debian.org/debian jessie-backports main' >> /etc/apt/sources.list && \
+    apt-get update && \
     apt-get install -y --no-install-recommends rsyslog && \
     echo "postfix postfix/main_mailer_type string Internet site" > preseed.txt && \
     echo "postfix postfix/mailname string mail.replace.me" >> preseed.txt && \
@@ -21,6 +22,7 @@ RUN apt-get update && \
         sasl2-bin libpam-mysql \
         opendkim \
         opendkim-tools && \
+    apt-get -t jessie-backports -y install postsrsd && \
     apt-get autoclean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /usr/share/locale/* && \
@@ -37,6 +39,7 @@ ENV MAIL_HOST_NAME MAIL_FQDN MAIL_DOMAIN POSTFIX_DB_HOST POSTFIX_DB_NAME POSTFIX
 VOLUME /etc/postfix/tls
 VOLUME /etc/mail/dkim
 VOLUME /var/mail/vmail
+VOLUME /opt/postfix/conf/postsrsd/secret
 
 EXPOSE 25 587
 

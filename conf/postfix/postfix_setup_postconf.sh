@@ -41,3 +41,9 @@ postconf -e 'non_smtpd_milters = inet:127.0.0.1:8891'
 
 # Uncomment this to enable HA Proxy protocol
 postconf -e 'smtpd_upstream_proxy_protocol = haproxy'
+
+# Sender Rewriting Scheme (SRS)
+postconf -e 'sender_canonical_maps = tcp:127.0.0.1:10001'
+postconf -e 'sender_canonical_classes = envelope_sender'
+postconf -e 'recipient_canonical_maps = tcp:127.0.0.1:10002'
+postconf -e 'recipient_canonical_classes = envelope_recipient,header_recipient'

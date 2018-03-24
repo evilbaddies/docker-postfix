@@ -18,7 +18,7 @@ cp -f /etc/resolv.conf /var/spool/postfix/etc/
 sed -i '/submission.*inet.*smtpd/s/^#//g' /etc/postfix/master.cf
 
 # Set the FQDN for mail server in /etc/mailname
-sed -i 's/mail.replace.me/$MAIL_FQDN/g' /etc/mailname
+sed -i "s/mail.replace.me/$MAIL_FQDN/g" /etc/mailname
 
 MAIL_DOMAIN_ESC_DOTS=$(echo $MAIL_DOMAIN | sed "s/\./\\\./g")
 sed -e "s/\$MAIL_DOMAIN_ESC_DOTS/$MAIL_DOMAIN_ESC_DOTS/g" < /opt/postfix/conf/postfix/header_checks.tmpl > /etc/postfix/header_checks
@@ -66,10 +66,23 @@ sed -e "s/\$POSTFIX_DB_HOST/$POSTFIX_DB_HOST/;
         s/\$POSTFIX_DB_PASSWORD/$POSTFIX_DB_PASSWORD/" < /opt/postfix/conf/dovecot/dovecot-sql.conf.tmpl > /etc/dovecot/dovecot-sql.conf
 set -x +v
 
+####################################################################
+# SRS stuff
+####################################################################
+
+sed -i "s/localdomain/$MAIL_DOMAIN/g" /etc/default/postsrsd
+
+cp -f /opt/postfix/conf/postsrsd/secret/postsrsd.secret /etc/postsrsd.secret
+
+systemctl enable postsrsd
+
+
+
 service rsyslog restart
 service saslauthd restart
 service dovecot restart
 service opendkim restart
+service postsrsd restart
 
 postfix_status=`postfix status || true`
 if [[ -z "${postfix_status##*$is running*}" ]]; then
